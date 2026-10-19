@@ -1,0 +1,328 @@
+### Obtener todas las configuraciones de reservas
+GET http://localhost:3000/configuracion-reservas-consultas
+Content-Type: application/json
+###
+
+### Obtener una configuración de reservas por ID
+GET http://localhost:3000/configuracion-reservas-consultas/30
+Content-Type: application/json
+
+### Crear una configuración de reservas (POST)
+POST http://localhost:3000/configuracion-reservas-consultas
+Content-Type: application/json
+
+{
+    "diasSemana": "Lunes, Miércoles, Viernes",
+    "horaInicioReserva": "17:00:00",
+    "horaFinReserva": "12:00:00",
+    "diasAnticipacionMinima": 2,
+    "diasAnticipacionMaxima": 4
+}
+
+### Obtener doctores por especialidad (incluye consultorios y postas)
+GET http://localhost:3000/doctores/especialidad/2
+Content-Type: application/json
+
+### Obtener doctores - Especialidad Inexistente
+GET http://localhost:3000/doctores/especialidad/999
+Content-Type: application/json
+
+### Obtener doctores - Especialidad Sin Doctores
+# Asumiendo que la especialidad 5 existe pero no tiene doctores
+GET http://localhost:3000/doctores/especialidad/5
+Content-Type: application/json
+
+### Actualizar una configuración de reservas (PUT)
+PUT http://localhost:3000/configuracion-reservas-consultas/30
+Content-Type: application/json
+
+{
+    "diasSemana": "Lunes a Viernes",
+    "horaInicioReserva": "09:00:00",
+    "horaFinReserva": "17:00:00",
+    "diasAnticipacionMinima": 2,
+    "diasAnticipacionMaxima": 3
+}
+
+### Eliminar una configuración de reservas por ID
+DELETE http://localhost:3000/configuracion-reservas-consultas/1
+Content-Type: application/json 
+
+### FECHAS CIERRE DE RESERVAS
+
+### Obtener todas las fechas de cierre de reservas
+GET http://localhost:3000/fecha-cierre-reservas
+Content-Type: application/json
+
+### Obtener una fecha de cierre de reservas por ID
+GET http://localhost:3000/fecha-cierre-reservas/14
+Content-Type: application/json
+
+### Crear una fecha de cierre de reservas
+POST http://localhost:3000/fecha-cierre-reservas
+Content-Type: application/json
+
+{
+    "fecha": "2024-12-31",
+    "descripcion": "Fin de año"
+}
+
+### Actualizar una fecha de cierre de reservas por ID
+PUT http://localhost:3000/fecha-cierre-reservas/4
+Content-Type: application/json
+
+{
+    "fecha": "2024-12-25",
+    "descripcion": "Navidad"
+}
+
+### Eliminar una fecha de cierre de reservas por ID
+DELETE http://localhost:3000/fecha-cierre-reservas/4
+Content-Type: application/json
+
+
+### ESPECIALIDAD MEDICA
+### Obtener todas las especialidades médicas
+GET http://localhost:3000/especialidad-medica
+Content-Type: application/json
+### Obtener una especialidad médica por ID
+GET http://localhost:3000/especialidad-medica/1
+Content-Type: application/json 
+### Crear una especialidad médica
+POST http://localhost:3000/especialidad-medica
+Content-Type: application/json
+
+{
+    "nombre": "Prueba Cardiología",
+    "codigo": "CARDIO",
+    "descripcion": "Especialidad médica que se ocupa del estudio y tratamiento de las enfermedades del corazón y del sistema circulatorio.",
+    "tiempoCitaPorDefecto": 20,
+    "activo": true,
+    "visible": true
+}
+### Actualizar una especialidad médica por ID
+PUT http://localhost:3000/especialidad-medica/1
+Content-Type: application/json
+
+{
+    "nombre": "Neurología",
+    "codigo": "NEURO",
+    "descripcion": "Especialidad médica que se ocupa del estudio y tratamiento de las enfermedades del sistema nervioso.",
+    "tiempoCitaPorDefecto": 30,
+    "activo": true,
+    "visible": true
+}
+### Eliminar una especialidad médica por ID
+DELETE http://localhost:3000/especialidad-medica/1
+Content-Type: application/json
+
+### POSTAS MEDICAS
+### Obtener todas las postas médicas
+GET http://localhost:3000/postas-medicas
+Content-Type: application/json 
+
+### Obtener una posta médica por ID
+GET http://localhost:3000/postas-medicas/1
+Content-Type: application/json
+
+### Obtener postas médicas por especialidad
+GET http://localhost:3000/postas-medicas/especialidad/1
+Content-Type: application/json
+
+### Obtener consultorios de una posta médica
+GET http://localhost:3000/postas-medicas/1/consultorios
+Content-Type: application/json
+
+### Crear una posta médica
+POST http://localhost:3000/postas-medicas
+Content-Type: application/json
+
+{
+    "nombre": "Posta Médica Central",
+    "codigo": "PMC-001",
+    "direccion": "Calle Falsa 123",
+    "telefono": "555-1234",
+    "ubicacionGps": "-16.500000, -68.150000",
+    "horarioAtencionMananaInicio": "08:00:00",
+    "horarioAtencionMananaFin": "12:00:00",
+    "horarioAtencionTardeInicio": "14:00:00",
+    "horarioAtencionTardeFin": "18:00:00",  
+    "activo": true
+}
+
+### Actualizar una posta médica por ID
+PUT http://localhost:3000/postas-medicas/2
+Content-Type: application/json
+
+{
+    "nombre": "Posta Médica Norte",
+    "codigo": "PMN-002",
+    "direccion": "Avenida Siempre Viva 742",
+    "telefono": "555-5678",
+    "ubicacionGps": "-16.520000, -68.130000",
+    "horarioAtencionMananaInicio": "09:00:00",
+    "horarioAtencionMananaFin": "13:00:00",
+    "horarioAtencionTardeInicio": "15:00:00",
+    "horarioAtencionTardeFin": "19:00:00",  
+    "activo": true
+}
+
+### Eliminar una posta médica por ID
+DELETE http://localhost:3000/postas-medicas/1 
+Content-Type: application/json 
+
+### CONSULTORIO ESPECIALIDAD
+
+### Obtener todos los consultorios especialidad
+GET http://localhost:3000/consultorio-especialidad
+Content-Type: application/json
+
+### Obtener un consultorio especialidad por ID
+GET http://localhost:3000/consultorio-especialidad/1
+Content-Type: application/json
+
+### Crear un nuevo consultorio especialidad
+# Nota: Asegúrate de que idPosta e idEspecialidad existan en tu DB
+POST http://localhost:3000/consultorio-especialidad
+Content-Type: application/json
+
+{
+    "idPosta": 1,
+    "idEspecialidad": 2,
+    "fechaHabilitacion": "2026-01-27",
+    "numeroConsultorio": "CONS-101",
+    "pisoUbicacion": "Primer Piso",
+    "activo": true
+}
+
+### Actualizar un consultorio especialidad existente
+# Puedes actualizar solo algunos campos o cambiar la posta/especialidad
+PUT http://localhost:3000/consultorio-especialidad/1
+Content-Type: application/json
+
+{
+    "numeroConsultorio": "CONS-101-MOD",
+    "pisoUbicacion": "Planta Baja",
+    "idPosta": 2
+}
+
+### Eliminar un consultorio especialidad por ID (Borrado Lógico)
+DELETE http://localhost:3000/consultorio-especialidad/1
+Content-Type: application/json
+
+### RESERVAS PACIENTES
+
+### Obtener todas las reservas de pacientes
+GET http://localhost:3000/reservas-pacientes
+Content-Type: application/json
+
+### Obtener una reserva de paciente por ID
+GET http://localhost:3000/reservas-pacientes/1
+Content-Type: application/json
+
+### Obtener reservas por ID de Doctor
+GET http://localhost:3000/reservas-pacientes/doctor/5
+Content-Type: application/json
+
+### Obtener reservas por ID de Doctor - Doctor Inexistente
+GET http://localhost:3000/reservas-pacientes/doctor/999
+Content-Type: application/json
+
+### Obtener reservas por ID de Doctor - Sin Reservas
+# Asumiendo que el doctor 2 existe pero no tiene reservas
+GET http://localhost:3000/reservas-pacientes/doctor/2
+Content-Type: application/json
+
+### Obtener reservas por ID de Usuario (Historial)
+GET http://localhost:3000/reservas-pacientes/usuario/1
+Content-Type: application/json
+
+### Obtener reservas por ID de Usuario - Usuario Inexistente
+GET http://localhost:3000/reservas-pacientes/usuario/999
+Content-Type: application/json
+
+### Obtener reservas por ID de Usuario - Sin Reservas
+GET http://localhost:3000/reservas-pacientes/usuario/2
+Content-Type: application/json
+
+### Obtener reservas PROGRAMADAS por ID de Usuario
+GET http://localhost:3000/reservas-pacientes/usuario/1/programadas
+Content-Type: application/json
+
+### Crear una nueva reserva de paciente
+# Nota: Asegúrate de que los IDs (usuario, especialidad, posta) existan
+# y que la fecha/hora cumplan con configuracion_reservas_consultas y fecha_cierre
+POST http://localhost:3000/reservas-pacientes
+Content-Type: application/json
+
+{
+    "idUsuario": 1,
+    "idEspecialidad": 2,
+    "idPosta": 1,
+    "fechaCita": "2024-10-25",
+    "horaInicioCita": "10:00:00",
+    "horaFinCita": "10:30:00",
+    "observaciones": "Primera consulta"
+}
+
+### Actualizar una reserva existente
+PUT http://localhost:3000/reservas-pacientes/1
+Content-Type: application/json
+
+{
+    "observaciones": "Cambio de horario solicitado",
+    "horaInicioCita": "11:00:00",
+    "horaFinCita": "11:30:00"
+}
+
+### Eliminar (Cancelar) una reserva por ID
+DELETE http://localhost:3000/reservas-pacientes/1
+Content-Type: application/json
+
+### CONTRATO
+
+### Obtener todos los contratos
+GET http://localhost:3000/contrato
+Content-Type: application/json
+
+### Obtener un contrato por ID
+GET http://localhost:3000/contrato/1
+Content-Type: application/json
+
+### Crear un nuevo contrato
+# Nota: Asegúrate de que idConsultor (un id de usuario existente) sea válido.
+POST http://localhost:3000/contrato
+Content-Type: application/json
+
+{
+    "idConsultor": 1,
+    "fechaInicioContrato": "2025-01-01",
+    "fechaFinContrato": "2025-12-31",
+    "cargo": "Enfermero de Triaje",
+    "idServicio": 1,
+    "unidad": "Emergencias",
+    "documentoContratoUrl": "https://example.com/contrato.pdf"
+}
+
+### Actualizar un contrato existente (Actualización Parcial)
+# Probamos enviar solo algunos campos para verificar que el DTO parcial funciona
+PUT http://localhost:3000/contrato/1
+Content-Type: application/json
+
+{
+    "cargo": "Enfermero Jefe de Turno - Actualizado",
+    "unidad": "Emergencias - Noche"
+}
+
+### Actualizar un contrato existente (Cambio de Consultor)
+# Probamos cambiar el consultor asignado (verifica la lógica de relaciones)
+PUT http://localhost:3000/contrato/1
+Content-Type: application/json
+
+{
+    "idConsultor": 2
+}
+
+### Eliminar un contrato por ID (Borrado Lógico)
+DELETE http://localhost:3000/contrato/1
+Content-Type: application/json

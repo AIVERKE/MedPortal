@@ -1,0 +1,37 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+dist-ssr/
+build/
+
+# Tests
+coverage/
+.nyc_output/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Editores y SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Archivos subidos por usuarios
+backend/uploads/**
+!backend/uploads/.gitkeep
+!backend/uploads/registros/
+!backend/uploads/registros/.gitkeep
+!backend/uploads/perfiles/
+!backend/uploads/perfiles/.gitkeep
+
+# Salidas temporales
+backend/test_output.txt
