@@ -39,7 +39,7 @@ describe('NotificationsService', () => {
     },
     especialidad: { nombre: 'Medicina General' },
     posta: { nombre: 'Posta Central', direccion: 'Av. Villazón' },
-  } as ReservaPaciente;
+  } as unknown as ReservaPaciente;
 
   beforeEach(async () => {
     usuariosService = {
