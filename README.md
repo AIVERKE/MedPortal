@@ -117,12 +117,7 @@ Los workflows están en `.github/workflows/`:
 
 - **`backend-ci.yml`**: en cada push o pull request a `main`/`develop` que toque `backend/`, instala dependencias, ejecuta ESLint, verifica tipos con `tsc --noEmit` y compila.
 - **`frontend-ci.yml`**: en cada push o pull request a `main`/`develop` que toque `frontend/`, instala dependencias y compila con Vite.
-- **`cd.yml`**: en cada push a `main` (o manualmente desde la pestaña Actions) compila backend y frontend y publica los resultados como artefactos. El job `deploy` está preparado para añadir el despliegue real (SSH, Docker, etc.).
-
-Para el CD, configura en GitHub (Settings > Secrets and variables > Actions):
-
-- Variable `VITE_API_URL`: URL pública del backend usada al compilar el frontend.
-- El entorno `production` (Settings > Environments) y los secrets que requiera el método de despliegue elegido.
+- **`cd.yml`**: en cada push a `main` (o manualmente desde la pestaña Actions) compila backend y frontend.
 
 ## Estructura del repositorio
 
