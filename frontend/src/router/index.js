@@ -169,11 +169,6 @@ const router = createRouter({
       component: () => import('../views/Doctores.vue')
     },
     {
-      path: '/doctor/historial-medico',
-      name: 'historial_medico',
-      component: () => import('../views/HistorialMedico.vue')
-    },
-    {
       path: '/doctor/agenda',
       name: 'doctor_agenda',
       component: () => import('../views/AgendaDoctor.vue')
@@ -244,7 +239,6 @@ router.beforeEach((to, from, next) => {
       const allowedForDoctors = [
         '/doctor/home',
         '/doctor/agenda',
-        '/doctor/historial-medico',
         '/administrar-cuenta',
         '/login',
         '/llenar-formularios',

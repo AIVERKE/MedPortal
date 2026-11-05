@@ -234,22 +234,6 @@
                             Siguiente Paso
                         </v-btn>
                     </v-col>
-                    <!-- 
-                    <v-col cols="12" v-if="!isEmergency">
-                        <v-btn block color="primary" rounded="lg" elevation="2" class="text-none font-weight-bold"
-                            :disabled="!selectedPersona" @click="confirmar" prepend-icon="mdi-stethoscope"
-                            style="white-space: normal; height: auto; min-height: 48px;">
-                            Iniciar Historial Médico
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="12" v-if="!isEmergency">
-                        <v-btn block color="deep-purple-lighten-1" rounded="lg" elevation="2"
-                            class="text-none font-weight-bold" :disabled="!selectedPersona" @click="confirmarPsicologia"
-                            prepend-icon="mdi-brain" style="white-space: normal; height: auto; min-height: 48px;">
-                            Iniciar Consulta Psicología
-                        </v-btn>
-                    </v-col>
-                    -->
                     <v-col cols="12" v-if="!isEmergency">
                         <v-btn block color="success" rounded="lg" elevation="2" class="text-none font-weight-bold"
                             :disabled="!selectedPersona" @click="goToStep2SinReserva" prepend-icon="mdi-arrow-right"
@@ -559,43 +543,6 @@ const handleSelection = (persona) => {
     }
 }
 
-const confirmar = () => {
-    if (!selectedPersona.value) return
-    if (isManual.value && !isManualPatientComplete()) {
-        showIncompleteModal('Completa todos los datos del paciente (nombres, apellidos y CI).')
-        return
-    }
-
-    router.push({
-        path: '/doctor/historial-medico',
-        query: {
-            pacienteId: isManual.value ? 'NEW' : form.value.idPersona,
-            nombre: `${form.value.nombres} ${form.value.primerApellido} ${form.value.segundoApellido || ''}`.trim(),
-            ci: form.value.ci
-        }
-    })
-    close()
-}
-
-const confirmarPsicologia = () => {
-    if (!selectedPersona.value) return
-    if (isManual.value && !isManualPatientComplete()) {
-        showIncompleteModal('Completa todos los datos del paciente (nombres, apellidos y CI).')
-        return
-    }
-
-    router.push({
-        path: '/doctor/historial-medico',
-        query: {
-            pacienteId: isManual.value ? 'NEW' : form.value.idPersona,
-            nombre: `${form.value.nombres} ${form.value.primerApellido} ${form.value.segundoApellido || ''}`.trim(),
-            ci: form.value.ci,
-            type: 'psicologia'
-        }
-    })
-    close()
-}
-
 const goToStep2 = () => {
     if (!selectedPersona.value) return
     if (isManual.value && !isManualPatientComplete()) {
@@ -758,16 +705,10 @@ const confirmarSinReserva = async () => {
     try {
         const result = await reservasStore.createReservaSinReserva(payload)
         if (result.success) {
-            emit('emergency-created')
-            await router.push({
-                path: '/doctor/historial-medico',
-                query: {
-                    pacienteId: isManual.value ? 'NEW' : form.value.idPersona,
-                    nombre: pacienteNombre.value,
-                    ci: form.value.ci
-                }
-            })
-            close()
+            resultModalTitle.value = 'Atención registrada'
+            resultModalMessage.value = `La atención sin reserva del paciente ${pacienteNombre.value} fue registrada correctamente.`
+            resultModalType.value = 'success'
+            showResultModal.value = true
             return
         }
         showAtencionError(reservasStore.error || 'Ocurrió un error al registrar la atención sin reserva.')
