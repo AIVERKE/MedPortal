@@ -11,21 +11,6 @@
                 </p>
             </div>
             <v-row dense class="ma-0 flex-grow-0" style="width: 100%; max-width: 100%;">
-                <!-- <v-col cols="6" sm="auto">
-                    <v-btn color="deep-purple-lighten-1" :size="$vuetify.display.xs ? 'default' : 'large'" rounded="lg"
-                        elevation="2" prepend-icon="mdi-brain" block class="text-none font-weight-bold btn-header-main"
-                        @click="$router.push('/doctor/historial-medico?type=psicologia')">
-                        Historial Psicología
-                    </v-btn>
-                </v-col>
-                <v-col cols="6" sm="auto">
-                    <v-btn color="secondary" :size="$vuetify.display.xs ? 'default' : 'large'" rounded="lg"
-                        elevation="2" prepend-icon="mdi-history" block
-                        class="text-none font-weight-bold btn-header-main"
-                        @click="$router.push('/doctor/historial-medico')">
-                        Historial Médico
-                    </v-btn>
-                </v-col> -->
                 <v-col cols="6" sm="auto">
                     <v-btn color="success" :size="$vuetify.display.xs ? 'default' : 'large'" rounded="lg" variant="flat"
                         prepend-icon="mdi-account-plus" block class="text-none font-weight-bold btn-header-main"
@@ -663,6 +648,10 @@
     <ModalMensaje v-model="showErrorModal" :title="errorTitle" :message="errorMessage" type="error" buttonText="Entendido"
         @confirm="showErrorModal = false" />
 
+    <!-- Modal de Éxito al Atender Paciente -->
+    <ModalMensaje v-model="showSuccessModal" :title="successTitle" :message="successMessage" type="success" buttonText="Aceptar"
+        @confirm="showSuccessModal = false" />
+
     <!-- Modal Atender Sin Reserva -->
     <AtenderSinReservaModal v-model="showAtenderSinReservaModal" :is-emergency="isEmergencyMode"
         @emergency-created="fetchDoctorData" />
@@ -707,6 +696,9 @@ const confirmModalConfirmText = ref("Sí, Atender")
 
 const showErrorModal = ref(false)
 const errorTitle = ref('No se pudo atender')
+const showSuccessModal = ref(false)
+const successTitle = ref('Paciente Atendido')
+const successMessage = ref('')
 const showAtenderSinReservaModal = ref(false)
 const isEmergencyMode = ref(false)
 const errorMessage = ref('')
@@ -798,15 +790,12 @@ const confirmarAtencion = async () => {
         })
 
         if (res?.success) {
-            const paciente = activeReserva.value?.paciente
+            const nombrePaciente = activeReserva.value?.paciente?.nombre || 'el paciente'
             activeReserva.value = null
-            await router.push({
-                path: '/doctor/historial-medico',
-                query: {
-                    ...(paciente?.id != null ? { pacienteId: String(paciente.id) } : {}),
-                    ...(paciente?.nombre ? { nombre: paciente.nombre } : {}),
-                },
-            })
+            await fetchDoctorData()
+            successTitle.value = '¡Paciente Atendido!'
+            successMessage.value = `La cita de ${nombrePaciente} ha sido marcada como atendida exitosamente.`
+            showSuccessModal.value = true
         } else {
             errorTitle.value = 'No se pudo atender'
             errorMessage.value = reservasStore.error || 'No se pudo realizar la operación'
